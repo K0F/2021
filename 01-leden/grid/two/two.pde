@@ -10,19 +10,19 @@ NetAddress myRemoteLocation;
 boolean gentick = true;
 
 boolean kruzidlo = true;
-boolean inward = false;
+boolean inward = true;
 float FPS = 30.0;
-boolean RENDER = true;
-float FRICTION = 0.35;
-int NUM = 27;
+boolean RENDER = false;
+float FRICTION = 0.098;
+int NUM = 8;
 int off = 24;
-float SPEED = 160.0;
-int numRiders = 1;
-int connections = 21;
+float SPEED = 1220.0;
+int numRiders = 8;
+int connections = 4;
 
 
 boolean savecsv = true;
-int TOSAVE = 1000;
+int TOSAVE = 5400;
 
 ArrayList oscill;
 ArrayList riders;
@@ -32,11 +32,11 @@ float TS = (float)TOSAVE;
 
 int mode = 0;
 
-float tempo = 120.0/60.0/4.0;
+float tempo = 120.0/60.0/4.0*0.8634;
 
 void setup(){
 
-  size(1080,1920,OPENGL);
+  size(1920,1080,OPENGL);
 
   randomSeed(2021);
   noiseSeed(2021);
@@ -159,12 +159,13 @@ class Rider{
 
   void connect(){
     w = new float[num];
+    
 
     for(int i = 0 ;i < num;i++){
       int idx = (int)random(0,oscill.size()-1);
       Oscill tmp = (Oscill)oscill.get(idx);
       active.add(tmp);
-      w[i] = pow(random(0,100)/400.0,2.0);
+      w[i] = (1.0+(1.0/(i+0.0)))*2.0;
     }
   }
 
@@ -297,21 +298,24 @@ class Oscill{
   }
 
   void mutate(){
-    set[4]+=(int)random(-25,25);
-    set[4]=constrain(set[4],0,255);
+    //set[4]+=(int)random(-25,25);
+    //set[4]=constrain(set[4],0,255);
 
     //right rotation
     int [] rot = {3,0,1,6,4,2,7,8,5};
+    int [] tmprot = new int[set.length];
     for(int i = 0 ; i < set.length;i++){
-      set[i] = set[rot[i]];
+      tmprot[i] = set[rot[i]];
     }
-
+    for(int i = 0 ; i < set.length;i++){
+      set[i] = tmprot[i];
+    }
 
   }
 
   void tick(){
 
-    if(frameCount%120==0 && gentick){
+    if(frameCount%round(30*0.864)==0 && gentick){
       mutate();
       for(int i = 0 ; i < riders.size();i++){
         Rider tmp = (Rider)riders.get(i);
