@@ -37,6 +37,12 @@ But please, remember you had been warned, there is plenty of code with very vary
 
 Some of the videos and rendered outputs are available @ [YouTube](https://www.youtube.com/channel/UC0elzuPFrxZQNeTS3-ocbYQ), they sould be linked to sources if possible, maybe in some future.
 
+Clone them all /w simple command
+```
+for i in 20{07,08,09,10,11,12,13,14,15,16,17,18,19,20,21}; do echo $i; git clone
+git@github.com:K0F/$i.git ; done
+```
+
 *Enjoy, and feel free to recycle!*
 
 *electronic gods be with you*

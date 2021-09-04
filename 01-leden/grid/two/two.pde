@@ -13,12 +13,12 @@ boolean kruzidlo = true;
 boolean inward = true;
 float FPS = 30.0;
 boolean RENDER = false;
-float FRICTION = 0.098;
+float FRICTION = 0.00175;
 int NUM = 8;
 int off = 24;
-float SPEED = 1220.0;
+float SPEED = 249.5/FPS*2.0;
 int numRiders = 8;
-int connections = 4;
+int connections = 3;
 
 
 boolean savecsv = true;
@@ -32,7 +32,7 @@ float TS = (float)TOSAVE;
 
 int mode = 0;
 
-float tempo = 120.0/60.0/4.0*0.8634;
+float tempo = 120.0/60.0/4.0*480.0/254.95;//0.8634;
 
 void setup(){
 
@@ -117,7 +117,7 @@ void draw(){
   text(nf(frameCount,6),20,20);
 
   if(RENDER)
-    saveFrame("/mnt/ramdisk/frame######.png");
+    saveFrame("/home/kof/Videos/render/frame######.png");
 
 }
 
@@ -202,7 +202,7 @@ class Rider{
               ));
       }
     }
-    border();
+    //border();
     if(trail.size()>=TS)
       trail.remove(0);
 
@@ -315,7 +315,7 @@ class Oscill{
 
   void tick(){
 
-    if(frameCount%round(30*0.864)==0 && gentick){
+    if(frameCount%round(tempo*30*(id+1 ))==0 && gentick){
       mutate();
       for(int i = 0 ; i < riders.size();i++){
         Rider tmp = (Rider)riders.get(i);
